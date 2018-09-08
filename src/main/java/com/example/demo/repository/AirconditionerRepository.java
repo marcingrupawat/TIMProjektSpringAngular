@@ -1,11 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Obiekty;
 import org.springframework.data.repository.CrudRepository;
-import java.util.List;
 
-public interface AirconditionerRepository extends CrudRepository<Obiekty,Long> {
+public interface AirconditionerRepository {
 
-    List<Obiekty> findByIdobiektu(int idobiektu);
+   // List<Obiekty> findByIdobiektu(int idobiektu);
 
 }

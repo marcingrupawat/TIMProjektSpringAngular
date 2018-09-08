@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.example.demo.model.StatusobiektowEntity" table="statusobiektow" schema="public"
+           catalog="dfgial13imktb6">
+        <id name="idstatusu">
+            <column name="idstatusu" sql-type="integer"/>
+        </id>
+        <property name="status">
+            <column name="status" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="aktynoscod">
+            <column name="aktynoscod" sql-type="timestamp"/>
+        </property>
+        <property name="aktywnoscdo">
+            <column name="aktywnoscdo" sql-type="timestamp"/>
+        </property>
+        <many-to-one name="obiektyByObiektyIdobiektu" class="com.example.demo.model.ObiektyEntity">
+            <column name="obiekty_idobiektu"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

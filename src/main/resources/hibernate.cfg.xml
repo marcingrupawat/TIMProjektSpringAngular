@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">
+        jdbc:postgresql://ec2-54-75-251-84.eu-west-1.compute.amazonaws.com:5432/dfgial13imktb6?sslmode=require
+    </property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.username">olyxglrvjdqnwf</property>
+    <property name="hibernate.connection.password">0dffb70b1ab25f4dea61f1b6a6a65a48c4e649adf54ac583417653d2f3b4b603</property>
+      <mapping class="com.example.demo.model.ObiektyEntity"/>
+      <!--<mapping resource="com/example/demo/model/obiektyentity.hbm.xml"/>-->
+      <mapping class="com.example.demo.model.StatusobiektowEntity"/>
+      <!--<mapping resource="com/example/demo/model/statusobiektowentity.hbm.xml"/>-->
+
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

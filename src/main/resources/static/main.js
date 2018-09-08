@@ -41,7 +41,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Customers</h1>\n\n<div *ngFor=\"let customer of allArticles | async\" style=\"width: 300px;\">\n\n    <div>\n      <label>Name: </label> {{customer.idObiektu}}\n    </div>\n    <div>\n      <label>Age: </label> {{customer.nazwaObiektu}}\n    </div>\n\n\n\n</div>\n"
+module.exports = "<h1>Customers</h1>\n\n<div *ngFor=\"let customer of products;\" style=\"width: 300px;\">\n\n    <div>\n      <label>Name: </label> {{customer.id}}\n    </div>\n    <div>\n      <label>Age: </label> {{customer.name}}\n    </div>\n\n\n\n</div>\n\n"
 
 /***/ }),
 
@@ -74,15 +74,23 @@ var AirconditionerComponent = /** @class */ (function () {
     function AirconditionerComponent(articleService, http) {
         this.articleService = articleService;
         this.http = http;
+        this.allArticlesUrl = "https://timpringangularprojct.herokuapp.com/airconditioner1";
+        this.products = [];
     }
     AirconditionerComponent.prototype.ngOnInit = function () {
-        this.reloadData();
-        /*this.courses$ = this.http
-          .get<Obiekty[]>("http://localhost:8080/airconditioner1")
-          .map(data => _.values(data))
-          .do(console.log);*/
+        this.getProducts();
+        //this.reloadData();
+    };
+    AirconditionerComponent.prototype.getProducts = function () {
+        var _this = this;
+        this.products = [];
+        this.articleService.getProducts().subscribe(function (data) {
+            console.log(data);
+            _this.products = data;
+        });
     };
     AirconditionerComponent.prototype.reloadData = function () {
+        //return this.http.get("https://timpringangularprojct.herokuapp.com/airconditioner1");
         this.allArticles = this.articleService.getCustomersList();
     };
     AirconditionerComponent = __decorate([
@@ -112,6 +120,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AirconditionerService", function() { return AirconditionerService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -123,14 +133,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var AirconditionerService = /** @class */ (function () {
     function AirconditionerService(http) {
         this.http = http;
-        this.allArticlesUrl = "http://localhost:8080/airconditioner1";
+        this.allArticlesUrl = "https://timpringangularprojct.herokuapp.com/airconditioner1";
     }
+    AirconditionerService.prototype.getProducts = function () {
+        return this.http.get(endpoint).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.extractData));
+    };
+    AirconditionerService.prototype.extractData = function (res) {
+        var body = res;
+        return body || {};
+    };
     AirconditionerService.prototype.getCustomersList = function () {
         return this.http.get(this.allArticlesUrl);
+        //return this.http.get<Obiekty[]>(this.allArticlesUrl).pipe(map(res => res),catchError(this.handleError));
         //return this.http.get<Obiekty[]>(`${this.allArticlesUrl}`).pipe(map(res => res));
+    };
+    AirconditionerService.prototype.handleError = function (operation, result) {
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // TODO: better job of transforming error for user consumption
+            console.log(operation + " failed: " + error.message);
+            // Let the app keep running by returning an empty result.
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
+        };
     };
     AirconditionerService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -139,6 +170,8 @@ var AirconditionerService = /** @class */ (function () {
     return AirconditionerService;
 }());
 
+var endpoint = 'https://timpringangularprojct.herokuapp.com/airconditioner1';
+var httpOptions = { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' }) };
 
 
 /***/ }),
@@ -406,7 +439,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img src=\"assets/img/landscaping.jpg\"/>\n"
+module.exports = "<img src=\"assets/img/landscaping.jpg\"/>\n<h1>Customers</h1>\n\n<div *ngFor=\"let customer of products;\" style=\"width: 300px;\">\n\n  <div>\n    <label>Name: </label> {{customer.id}}\n  </div>\n  <div>\n    <label>Age: </label> {{customer.name}}\n  </div>\n\n\n\n</div>\n"
 
 /***/ }),
 
@@ -421,6 +454,8 @@ module.exports = "<img src=\"assets/img/landscaping.jpg\"/>\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HouseComponent", function() { return HouseComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _house_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./house.service */ "./src/app/house/house.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -431,10 +466,24 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var HouseComponent = /** @class */ (function () {
-    function HouseComponent() {
+    function HouseComponent(houseService, http) {
+        this.houseService = houseService;
+        this.http = http;
+        this.products = [];
     }
     HouseComponent.prototype.ngOnInit = function () {
+        this.getProducts();
+    };
+    HouseComponent.prototype.getProducts = function () {
+        var _this = this;
+        this.products = [];
+        this.houseService.getProducts().subscribe(function (data) {
+            console.log(data);
+            _this.products = data;
+        });
     };
     HouseComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -442,11 +491,75 @@ var HouseComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./house.component.html */ "./src/app/house/house.component.html"),
             styles: [__webpack_require__(/*! ./house.component.css */ "./src/app/house/house.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_house_service__WEBPACK_IMPORTED_MODULE_2__["HouseService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], HouseComponent);
     return HouseComponent;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/house/house.service.ts":
+/*!****************************************!*\
+  !*** ./src/app/house/house.service.ts ***!
+  \****************************************/
+/*! exports provided: HouseService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HouseService", function() { return HouseService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var HouseService = /** @class */ (function () {
+    function HouseService(http) {
+        this.http = http;
+    }
+    HouseService.prototype.getProducts = function () {
+        return this.http.get(endpoint).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.extractData));
+    };
+    HouseService.prototype.handleError = function (operation, result) {
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // TODO: better job of transforming error for user consumption
+            console.log(operation + " failed: " + error.message);
+            // Let the app keep running by returning an empty result.
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
+        };
+    };
+    HouseService.prototype.extractData = function (res) {
+        var body = res;
+        return body || {};
+    };
+    HouseService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], HouseService);
+    return HouseService;
+}());
+
+var endpoint = 'https://timpringangularprojct.herokuapp.com/house';
+var httpOptions = { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' }) };
 
 
 /***/ }),
